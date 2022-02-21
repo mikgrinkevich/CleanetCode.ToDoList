@@ -1,8 +1,8 @@
 ﻿namespace CleanetCode.ToDoList.CLI.Operations
 {
-    interface IOperation
+    public interface IOperation
     {
-        string Name { get; set; }
+        string Name { get; }
         void Execute();
     }
 }

@@ -1,18 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
-/*
- пользователь:
-    - создать пользователя
-    - залогиниться
- 
- CRUD (create read update delete)
-    - создать задачу
-    - изменить задачу
-    - удалить задачу
-    - посмотреть список задач
-    - выполнить задачу
+﻿using CleanetCode.ToDoList.CLI;
+using CleanetCode.ToDoList.CLI.Operations;
 
- class interface record
-*/
-
-Task task = new Task();
+IOperation[] operations = new IOperation[]
+{
+    new LoginUserOperation(),
+    new CreateNewUserOperation()
+};
+Menu menu = new Menu(operations);
+Application application  = new Application(menu);
+application.Run();
