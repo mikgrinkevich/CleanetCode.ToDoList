@@ -22,6 +22,13 @@ namespace CleanetCode.ToDoList.CLI.Operations
             }
 
             Console.WriteLine("You've successfully created a new user");
+
+            FileStream userFile = new FileStream("C:\\Dev\\userData.txt", 
+                FileMode.OpenOrCreate, FileAccess.ReadWrite);
+            User userData = UserStorage.Get(); /*насколько я понимаю, имплементация должна быть 
+            именно тут, но я не понимаю, какой параметр сюда предавать и откуда его взять*/
+            userFile.Write(userData);
+            userFile.Close();
         }
     }
 }
