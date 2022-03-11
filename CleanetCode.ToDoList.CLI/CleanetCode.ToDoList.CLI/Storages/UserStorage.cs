@@ -1,4 +1,6 @@
 ﻿using CleanetCode.ToDoList.CLI.Models;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace CleanetCode.ToDoList.CLI.Storages
 {
@@ -13,13 +15,15 @@ namespace CleanetCode.ToDoList.CLI.Storages
 
         public static bool Create(User user) //верно ли что мы здесь создаем объект класса?
         {
-            return _users.TryAdd(user.Email, user); /*
-            здесь user уже существующая переменная,которую мы
-            возвращаем из другого метода или это новая переменная, которая 
-            переменная, которая хранит в себе объект класса с уникальным id guid и email? */
-             
-            /*можем ли мы дальше юзать эту переменную (user) в другом методе в рамках этого класса или это 
-            будет локальная переменная уже*/
+            return _users.TryAdd(user.Email, user);
+        }
+
+        public static string Save(User user)
+        {
+            using (StreamWriter file = new StreamWriter("C:\\dev\\users.txt"))
+                foreach (var item in _users)
+                    file.WriteLine("[{0} {1}]", item.Key, item.Value);
+            return null;
         }
 
     }

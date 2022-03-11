@@ -8,6 +8,7 @@
             Id = Guid.NewGuid();
         }
         public Guid Id { get; } 
-        public string Email { get; init; }
+
+        public string Email { get; init; } 
     }
 }
