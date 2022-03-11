@@ -10,10 +10,10 @@ namespace CleanetCode.ToDoList.CLI.Storages
         public static User? Get(string email)
         {
             _users.TryGetValue(email, out User? user);
-            return user; //типо email это и есть user
+            return user; //здеся user же тоже локальный?
         }
 
-        public static bool Create(User user)
+        public static bool Create(User user) //верно ли что мы здесь создаем объект класса?
         {
             return _users.TryAdd(user.Email, user);
         }
@@ -25,5 +25,6 @@ namespace CleanetCode.ToDoList.CLI.Storages
                     file.WriteLine("[{0} {1}]", item.Key, item.Value);
             return null;
         }
+
     }
 }

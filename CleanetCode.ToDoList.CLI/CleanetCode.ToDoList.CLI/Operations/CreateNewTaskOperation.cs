@@ -1,5 +1,6 @@
-﻿using CleanetCode.ToDoList.CLI.Models;
+using CleanetCode.ToDoList.CLI.Models;
 using Task = CleanetCode.ToDoList.CLI.Models.Task;
+
 namespace CleanetCode.ToDoList.CLI.Operations
 {
     public class CreateNewTaskOperation : IOperation
@@ -27,7 +28,6 @@ namespace CleanetCode.ToDoList.CLI.Operations
                 Id = id
             };
 
-            //Task task = new Task(task_name, description, is_completed, id);
         }
     }
 }
