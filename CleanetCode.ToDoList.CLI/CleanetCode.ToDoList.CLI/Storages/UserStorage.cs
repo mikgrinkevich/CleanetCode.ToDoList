@@ -1,4 +1,6 @@
 ﻿using CleanetCode.ToDoList.CLI.Models;
+using System.Collections.Generic;
+using System.Text.Json;
 
 namespace CleanetCode.ToDoList.CLI.Storages
 {
@@ -13,7 +15,15 @@ namespace CleanetCode.ToDoList.CLI.Storages
 
         public static bool Create(User user)
         {
-           return _users.TryAdd(user.Email, user);
+            return _users.TryAdd(user.Email, user);
+        }
+
+        public static string Save(User user)
+        {
+            using (StreamWriter file = new StreamWriter("C:\\dev\\users.txt"))
+                foreach (var item in _users)
+                    file.WriteLine("[{0} {1}]", item.Key, item.Value);
+            return null;
         }
     }
 }
