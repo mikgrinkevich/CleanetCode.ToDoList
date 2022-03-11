@@ -6,7 +6,7 @@
         {
             Id = Guid.NewGuid();
         }
-        public Guid Id { get; } //почему не нужен сеттер????
+        public Guid Id { get; } 
         public string Email { get; init; } //что такое init и нахой он нужон?
     }
 }

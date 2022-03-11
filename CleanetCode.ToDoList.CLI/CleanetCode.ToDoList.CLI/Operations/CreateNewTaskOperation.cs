@@ -12,13 +12,22 @@ namespace CleanetCode.ToDoList.CLI.Operations
             Console.Write("Enter some decription if you need");
             string description = Console.ReadLine();
             bool is_completed = false;
-            Guid user_id = new Guid();
+            Guid id = new Guid();
+
             /*
             DateTime created_date = DateTime.Now;
             DateTime updated_date = DateTime.Now;
-            Guid id = new Guid();
+            Guid user_id = new Guid();
             */
+            Task task = new Task
+            {
+                Name = task_name,
+                Description = description,
+                IsCompleted = is_completed,
+                Id = id
+            };
 
+            //Task task = new Task(task_name, description, is_completed, id);
         }
     }
 }
