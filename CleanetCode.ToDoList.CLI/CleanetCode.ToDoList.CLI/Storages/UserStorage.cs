@@ -1,6 +1,4 @@
 ﻿using CleanetCode.ToDoList.CLI.Models;
-using System.Collections.Generic;
-using System.Text.Json;
 
 namespace CleanetCode.ToDoList.CLI.Storages
 {
@@ -10,10 +8,10 @@ namespace CleanetCode.ToDoList.CLI.Storages
         public static User? Get(string email)
         {
             _users.TryGetValue(email, out User? user);
-            return user; //здеся user же тоже локальный?
+            return user; 
         }
 
-        public static bool Create(User user) //верно ли что мы здесь создаем объект класса?
+        public static bool Create(User user) 
         {
             return _users.TryAdd(user.Email, user);
         }

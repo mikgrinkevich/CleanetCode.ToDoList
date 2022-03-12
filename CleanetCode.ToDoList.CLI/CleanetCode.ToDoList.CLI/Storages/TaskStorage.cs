@@ -1,13 +1,21 @@
 ﻿using CleanetCode.ToDoList.CLI.Operations;
-using System.Text.Json;
+using Task = CleanetCode.ToDoList.CLI.Models.Task;
+
 namespace CleanetCode.ToDoList.CLI.Storages
 {
     public class TaskStorage
     {
-        /*public void SaveTask(Task task)
+        private static readonly List<Task> _tasks = new();
+
+        private static List<Task> Get()
         {
-            string jsonSerializer = new JsonSerializer(Task task);
-        }*/
-         //string jsonString = JsonSerializer.Serialize(task);
+            return _tasks;
+        }
+
+        public static bool Add(Task task)
+        {
+            _tasks.Add(task);
+            return true;
+        }
     }
 }

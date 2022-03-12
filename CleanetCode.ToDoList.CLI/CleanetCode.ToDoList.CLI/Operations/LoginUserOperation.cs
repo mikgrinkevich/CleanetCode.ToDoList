@@ -12,9 +12,10 @@ namespace CleanetCode.ToDoList.CLI.Operations
             string? email = Console.ReadLine();
             User? user = UserStorage.Get(email);
 
-            if(user == null)
+            if(user != null)
             {
                 UserSession.CurrentUser = user;
+                UserSession.Login = true;
             }
         }
     }

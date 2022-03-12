@@ -20,6 +20,14 @@ namespace CleanetCode.ToDoList.CLI.Operations
             bool UserCreated = UserStorage.Create(newUser);
             if (UserCreated)
             {
+                Console.WriteLine("You've successfully created a new user");
+            }
+            else
+            {
+                Console.WriteLine("The user is already exist");
+            }
+            /*if (UserCreated)
+            {
                 var test = UserStorage.Save(newUser);
                 Console.WriteLine("You've successfully created a new user");
             }
@@ -27,7 +35,7 @@ namespace CleanetCode.ToDoList.CLI.Operations
             {
                 Console.WriteLine("The user is already exist");
             }
-
+            */
         }
     }
 }
