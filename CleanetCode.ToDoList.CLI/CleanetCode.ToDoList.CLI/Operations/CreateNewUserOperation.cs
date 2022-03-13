@@ -11,7 +11,6 @@ namespace CleanetCode.ToDoList.CLI.Operations
             Console.Write("Enter your email: ");
             string? email = Console.ReadLine();
 
-            //т.е как только в конструктор попадает это свойство, мы создаем объект класса
             User newUser = new User
             {
                 Email = email,

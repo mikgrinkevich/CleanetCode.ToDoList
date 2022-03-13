@@ -17,5 +17,27 @@ namespace CleanetCode.ToDoList.CLI.Storages
             _tasks.Add(task);
             return true;
         }
+
+        public static void ShowAllTasks()
+        {
+            List<string> taskNames = new List<string>();
+            if(_tasks.Count > 0)
+            {
+                Console.Clear();
+                Console.WriteLine("The list of all operations: ");
+                foreach (var _task in _tasks)
+                {
+                    taskNames.Add(_task.Name);
+                }
+                foreach (var taskName in taskNames)
+                {
+                    Console.WriteLine(taskName);
+                }
+            }
+            else
+            {
+                Console.WriteLine("There are no any tasks");
+            }
+        }
     }
 }

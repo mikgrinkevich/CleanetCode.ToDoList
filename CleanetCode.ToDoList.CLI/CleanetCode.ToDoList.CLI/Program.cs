@@ -5,7 +5,8 @@ IOperation[] operations = new IOperation[]
 {
     new LoginUserOperation(),
     new CreateNewUserOperation(),
-    new CreateNewTaskOperation()
+    new CreateNewTaskOperation(),
+    new ReadAllTasksOperation()
 };
 Menu menu = new Menu(operations);
 Application application  = new Application(menu);

@@ -16,6 +16,8 @@ namespace CleanetCode.ToDoList.CLI.Storages
             return _users.TryAdd(user.Email, user);
         }
 
+        
+        /*
         public static string Save(User user)
         {
             using (StreamWriter file = new StreamWriter("C:\\dev\\users.txt"))
@@ -23,6 +25,6 @@ namespace CleanetCode.ToDoList.CLI.Storages
                     file.WriteLine("[{0} {1}]", item.Key, item.Value);
             return null;
         }
-
+        */
     }
 }
