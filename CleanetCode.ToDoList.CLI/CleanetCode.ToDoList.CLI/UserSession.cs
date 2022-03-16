@@ -4,7 +4,6 @@ namespace CleanetCode.ToDoList.CLI
 {
     public static class UserSession
     {
-        public static User CurrentUser { get; set; }
-        public static bool Login = false;
+        public static User? CurrentUser { get; set; }
     }
 }

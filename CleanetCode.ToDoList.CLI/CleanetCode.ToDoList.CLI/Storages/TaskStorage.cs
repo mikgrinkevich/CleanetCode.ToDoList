@@ -3,41 +3,79 @@ using Task = CleanetCode.ToDoList.CLI.Models.Task;
 
 namespace CleanetCode.ToDoList.CLI.Storages
 {
-    public class TaskStorage
+    public static class TaskStorage
     {
-        private static readonly List<Task> _tasks = new();
+        private static readonly Dictionary<Guid, List<Task>> _tasks = new ();
 
-        private static List<Task> Get()
+        public static Task[]? Get(Guid userId)
         {
-            return _tasks;
+            _tasks.TryGetValue(userId, out List<Task>? tasks);
+            return tasks?.ToArray();
         }
 
-        public static bool Add(Task task)
+        public static void Add(Task task)
         {
-            _tasks.Add(task);
-            return true;
-        }
-
-        public static void ShowAllTasks()
-        {
-            List<string> taskNames = new List<string>();
-            if(_tasks.Count > 0)
+            _tasks.TryGetValue(task.UserId, out List<Task>? tasks);
+            if (tasks == null)
             {
-                Console.Clear();
-                Console.WriteLine("The list of all operations: ");
-                foreach (var _task in _tasks)
-                {
-                    taskNames.Add(_task.Name);
-                }
-                foreach (var taskName in taskNames)
-                {
-                    Console.WriteLine(taskName);
-                }
+                _tasks.Add(task.UserId, new List<Task>{ task});
             }
             else
             {
-                Console.WriteLine("There are no any tasks");
+                tasks.Add(task);
             }
+        }
+
+        public static void Remove(Guid userId, Guid taskId)
+        {
+            _tasks.TryGetValue(userId,out List<Task>? tasks);
+            if (tasks == null)
+            {
+                return;
+            }
+
+            Task taskToDelete = null;
+            foreach (var task in tasks)
+            {
+                if (task.Id == taskId)
+                {
+                    taskToDelete = task;
+                }
+            }
+
+            if (taskToDelete == null)
+            {
+                return ;
+            }
+
+            tasks.Remove(taskToDelete);
+        }
+
+        public static void Update(Guid userId, Task updatedTask)
+        {
+            _tasks.TryGetValue(userId, out List<Task>? tasks);
+            if (tasks == null)
+            {
+                return;
+            }
+
+            Task taskToUpdate = null;
+            foreach (var task in tasks)
+            {
+                if (task.Id == updatedTask.Id)
+                {
+                    taskToUpdate = task;
+                }
+            }
+
+            if (taskToUpdate == null)
+            {
+                return;
+            }
+
+            tasks.Remove(taskToUpdate);
+            tasks.Add(updatedTask);
+
         }
     }
 }

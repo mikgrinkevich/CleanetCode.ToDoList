@@ -6,30 +6,59 @@ namespace CleanetCode.ToDoList.CLI
     public class Menu
     {
         private IOperation[] _operations;
-        public Menu(IOperation[] operations)
+        private readonly IAuthorizedOperation[] _authorizedOperations;
+
+        public Menu(IOperation[] operations, IAuthorizedOperation[] authorizedOperations)
         {
             _operations = operations;
+            _authorizedOperations = authorizedOperations;
         }
+
         public string[] GetOperationNames()
         {
             List<string> operationNames = new List<string>();
 
-            for (int i = 0; i < _operations.Length; i++)
+            if (UserSession.CurrentUser != null)
             {
-                IOperation operation = _operations[i];
-                operationNames.Add($"{i} - {operation.Name}");
+                for (int i = 0; i < _authorizedOperations.Length; i++)
+                {
+                    IAuthorizedOperation operation = _authorizedOperations[i];
+                    operationNames.Add($"{i} - {operation.Name}");
+                }
             }
-
+            else
+            {
+                for (int i = 0; i < _operations.Length; i++)
+                {
+                    IOperation operation = _operations[i];
+                    operationNames.Add($"{i} - {operation.Name}");
+                }
+            }
             return operationNames.ToArray();
         }
-        public void Enter(int operationNumber)
-        {
-            if (operationNumber < 0 || operationNumber >= _operations.Length)
-            {
-                return;
-            }
 
-            _operations[operationNumber].Execute();
+        public (bool Result, string Error) Enter(int operationNumber)
+        {
+            if (UserSession.CurrentUser != null)
+            {
+                if (operationNumber < 0 || operationNumber >= _authorizedOperations.Length)
+                {
+                    return (false, "Invalid task: " + operationNumber);
+                }
+
+                bool result = _authorizedOperations[operationNumber].Execute(UserSession.CurrentUser.Id);
+                return (result, string.Empty);
+            }
+            else
+            {
+                if (operationNumber < 0 || operationNumber >= _operations.Length)
+                {
+                    return (false, "Invalid task: " + operationNumber);
+                }
+
+                bool result = _operations[operationNumber].Execute();
+                return (result, string.Empty);
+            }
         }
     }
 }

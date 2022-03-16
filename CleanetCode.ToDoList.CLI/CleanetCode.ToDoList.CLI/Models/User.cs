@@ -9,6 +9,6 @@
         }
         public Guid Id { get; } 
 
-        public string Email { get; init; } 
+        public Email Email { get; init; } 
     }
 }

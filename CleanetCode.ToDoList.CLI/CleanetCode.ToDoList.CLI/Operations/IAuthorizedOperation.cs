@@ -1,8 +1,8 @@
 ﻿namespace CleanetCode.ToDoList.CLI.Operations
 {
-    public interface IOperation
+    public interface IAuthorizedOperation
     {
         string Name { get; }
-        bool Execute();
+        bool Execute(Guid userId);
     }
 }

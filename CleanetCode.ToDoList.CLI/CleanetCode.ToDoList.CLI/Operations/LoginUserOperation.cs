@@ -6,17 +6,27 @@ namespace CleanetCode.ToDoList.CLI.Operations
     public class LoginUserOperation : IOperation
     {
         public string Name => "Login into the system";
-        public void Execute()
-        {
-            Console.Write("Введите email");
-            string? email = Console.ReadLine();
-            User? user = UserStorage.Get(email);
 
-            if(user != null)
+        public bool Execute()
+        {
+            Console.Write("Enter your email:");
+            string? userInput = Console.ReadLine();
+            var (email, error) = Email.Create(userInput);
+            if (email == null)
             {
-                UserSession.CurrentUser = user;
-                UserSession.Login = true;
+                Console.WriteLine(error);
+                return false;
             }
+
+            User? user = UserStorage.Get(email);
+            if (user == null)
+            {
+                Console.WriteLine("User was not found");
+                return false;
+            }
+
+            UserSession.CurrentUser = user;
+            return true;
         }
     }
 }

@@ -3,47 +3,29 @@ using Task = CleanetCode.ToDoList.CLI.Models.Task;
 
 namespace CleanetCode.ToDoList.CLI.Operations
 {
-    public class CreateNewTaskOperation : IOperation
+    public class CreateNewTaskOperation : IAuthorizedOperation
     {
-        public string Name => "Create new task";
-        public void Execute()
+        public string Name => "Create a new task";
+
+        public bool Execute(Guid userId)
         {
-            if (UserSession.Login)
-            {
-                Console.Write("Enter your task name");
-                string? taskName = Console.ReadLine();
-                Console.Write("Enter some decription if you need");
-                string? description = Console.ReadLine();
-                bool isCompleted = false;
-                Guid id = Guid.NewGuid();
-                Guid userId = Guid.NewGuid();
+            Console.Write("Please, enter name of the task: ");
+            string? name = Console.ReadLine();
 
-                Task task = new Task
-                {
-                    Id = id,
-                    Name = taskName,
-                    Description = description,
-                    IsCompleted = isCompleted,
-                    CreatedDate = DateTime.Now,
-                    UpdatedDate = DateTime.Now,
-                    UserId = UserSession.CurrentUser.Id
-                };
+            Console.Write("Please, enter description of the task: ");
+            string? description = Console.ReadLine();
 
-                bool isSuccessfullyAdded = TaskStorage.Add(task);
-                if (isSuccessfullyAdded)
-                {
-                    Console.WriteLine("User has been successfully created");
-                }
-                else
-                {
-                    Console.WriteLine("Something went wrond, please, try again");
-                }
-            }
-            else
+            var (newTask, error) = Task.Create(name, description, userId);
+
+            if (newTask == null)
             {
-                Console.WriteLine("Please, login before creating new task");
+                Console.WriteLine(error);
+                return false;
             }
 
+            TaskStorage.Add(newTask);
+
+            return true;
         }
     }
 }
